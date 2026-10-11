@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AutoRegister
-public class TileEntityTurretHoward extends TileEntityTurretBaseNT implements IGUIProvider {
+public class TileEntityTurretHoward extends TileEntityTurretRadarCommandBase implements IGUIProvider {
 	static List<Integer> configs = new ArrayList<>();
 
 	static {
