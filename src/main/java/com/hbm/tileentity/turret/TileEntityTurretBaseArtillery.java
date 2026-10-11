@@ -9,6 +9,7 @@ import li.cil.oc.api.machine.Context;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.Optional;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,16 +102,8 @@ public abstract class TileEntityTurretBaseArtillery extends TileEntityTurretBase
 
     @Override
     public String[] getFunctionInfo() {
-        return new String[] {
-                PREFIX_FUNCTION + "setactive" + NAME_SEPARATOR + "active (0 or 1)",
-                PREFIX_FUNCTION + "targetplayers" + NAME_SEPARATOR + "enabled (0 or 1)",
-                PREFIX_FUNCTION + "targetanimals" + NAME_SEPARATOR + "enabled (0 or 1)",
-                PREFIX_FUNCTION + "targetmobs" + NAME_SEPARATOR + "enabled (0 or 1)",
-                PREFIX_FUNCTION + "targetmachines" + NAME_SEPARATOR + "enabled (0 or 1)",
-                PREFIX_FUNCTION + "addwhitelist" + NAME_SEPARATOR + "name",
-                PREFIX_FUNCTION + "removewhitelist" + NAME_SEPARATOR + "name",
-                PREFIX_FUNCTION + "enqueue" + NAME_SEPARATOR + "x" + PARAM_SEPARATOR + "y" + PARAM_SEPARATOR + "z",
-        };
+        return ArrayUtils.add(super.getFunctionInfo(),
+                PREFIX_FUNCTION + "enqueue" + NAME_SEPARATOR + "x" + PARAM_SEPARATOR + "y" + PARAM_SEPARATOR + "z");
     }
 
     @Override
