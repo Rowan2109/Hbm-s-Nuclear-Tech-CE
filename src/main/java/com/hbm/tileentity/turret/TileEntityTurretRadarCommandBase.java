@@ -1,7 +1,10 @@
 package com.hbm.tileentity.turret;
 
 import com.hbm.config.ServerConfig;
+import com.hbm.entity.projectile.EntityArtilleryRocket;
+import com.hbm.entity.projectile.EntityArtilleryShell;
 import com.hbm.tileentity.IRadarCommandReceiver;
+import com.hbm.util.CompatExternal;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -49,6 +52,16 @@ public abstract class TileEntityTurretRadarCommandBase extends TileEntityTurretB
         }
 
         this.target = target;
+        return true;
+    }
+
+    //artillery shells and rockets count as machines, but only for these turrets
+    @Override
+    public boolean entityAcceptableTarget(Entity e) {
+        if (super.entityAcceptableTarget(e)) return true;
+        if (!this.targetMachines || e.isDead || !ServerConfig.ARTILLERY_PROJECTILES_SHOOTABLE.get()) return false;
+        if (!(e instanceof EntityArtilleryShell) && !(e instanceof EntityArtilleryRocket)) return false;
+        for (Class<?> c : CompatExternal.turretTargetBlacklist) if (c.isAssignableFrom(e.getClass())) return false;
         return true;
     }
 

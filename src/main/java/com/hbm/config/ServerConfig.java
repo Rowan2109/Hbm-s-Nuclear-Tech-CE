@@ -27,6 +27,7 @@ public class ServerConfig extends RunningConfig {
     public static ConfigWrapper<Boolean> CONVEYOR_CRAM_EXPLODE =	    new ConfigWrapper<>(true);
     public static ConfigWrapper<Boolean> CIWS_RADAR_LINK_ENABLED =	    new ConfigWrapper<>(true);
     public static ConfigWrapper<Float> CIWS_RADAR_RANGE_MULT =		    new ConfigWrapper<>(4F);
+    public static ConfigWrapper<Boolean> ARTILLERY_PROJECTILES_SHOOTABLE =	new ConfigWrapper<>(true);
 
     private static void initDefaults() {
         configMap.put("DAMAGE_COMPATIBILITY_MODE", DAMAGE_COMPATIBILITY_MODE);
@@ -46,6 +47,7 @@ public class ServerConfig extends RunningConfig {
         configMap.put("CONVEYOR_CRAM_EXPLODE", CONVEYOR_CRAM_EXPLODE);
         configMap.put("CIWS_RADAR_LINK_ENABLED", CIWS_RADAR_LINK_ENABLED);
         configMap.put("CIWS_RADAR_RANGE_MULT", CIWS_RADAR_RANGE_MULT);
+        configMap.put("ARTILLERY_PROJECTILES_SHOOTABLE", ARTILLERY_PROJECTILES_SHOOTABLE);
     }
 
     /** Initializes defaults, then reads the config file if it exists, then writes the config file. */

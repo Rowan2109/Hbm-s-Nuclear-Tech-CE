@@ -1,6 +1,7 @@
 package com.hbm.entity.projectile;
 
 import com.hbm.api.entity.IRadarDetectable;
+import com.hbm.config.ServerConfig;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.entity.projectile.rocketbehavior.IRocketSteeringBehavior;
 import com.hbm.entity.projectile.rocketbehavior.IRocketTargetingBehavior;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -143,6 +145,18 @@ public class EntityArtilleryRocket extends EntityThrowableNT
     }
   }
 
+  public int health = 100;
+
+  @Override
+  public boolean attackEntityFrom(DamageSource source, float amount) {
+    if (!ServerConfig.ARTILLERY_PROJECTILES_SHOOTABLE.get() || this.isEntityInvulnerable(source)) return false;
+    if (this.health > 0 && !this.world.isRemote) {
+      this.health -= (int) amount;
+      if (this.health <= 0) this.setDead();
+    }
+    return true;
+  }
+
   @Override
   protected void onImpact(RayTraceResult mop) {
     if (!world.isRemote) {
@@ -221,6 +235,7 @@ public class EntityArtilleryRocket extends EntityThrowableNT
     nbt.setDouble("targetZ", this.lastTargetPos.z);
 
     nbt.setInteger("type", this.dataManager.get(TYPE));
+    nbt.setInteger("health", this.health);
   }
 
   @Override
@@ -230,6 +245,7 @@ public class EntityArtilleryRocket extends EntityThrowableNT
 
     this.lastTargetPos = new Vec3d(nbt.getDouble("targetX"), nbt.getDouble("targetY"), nbt.getDouble("targetZ"));
     this.setType(nbt.getInteger("type"));
+    if (nbt.hasKey("health")) this.health = nbt.getInteger("health");
   }
 
   @Override
