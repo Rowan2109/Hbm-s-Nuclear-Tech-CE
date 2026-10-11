@@ -129,7 +129,7 @@ public class TileEntityTurretHoward extends TileEntityTurretRadarCommandBase imp
 				if(conf != null) {
 					this.consumeAmmo(conf.ammo);
 					this.world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), HBMSoundHandler.howard_reload, SoundCategory.BLOCKS, 4.0F, 1F);
-					loaded = 200;
+					loaded = 100;
 				}
 			}
 		}
